@@ -1,0 +1,38 @@
+# ROS2 build artifacts
+build/
+install/
+log/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# ROS bags (optional - uncomment if you don't want to track bags)
+# *.bag
+# *.db3
+
+# Maps (optional - uncomment if maps are too large)
+# maps/
+
+# Temporary files
+*.tmp
+*.log
+
+# Claude Code
+.claude/plans/
+
+# MCP config with tokens
+.mcp.json
