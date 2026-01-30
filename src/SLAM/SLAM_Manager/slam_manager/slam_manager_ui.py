@@ -149,13 +149,13 @@ class SlamManagerUI(QtWidgets.QMainWindow):
             self.node.launch_files['slamtoolbox_loc'] = str(slamtoolbox_loc)
             self.log(f"Found SLAM Toolbox Localization: {slamtoolbox_loc}")
 
-        # Cartographer mapping (cartographer.launch.py)
+        # Cartographer mapping
         carto_mapping = src_path / 'SLAM' / '2D_SLAM' / 'Cartographer' / 'launch' / 'cartographer.launch.py'
         if carto_mapping.exists():
             self.node.launch_files['carto_mapping'] = str(carto_mapping)
             self.log(f"Found Cartographer Mapping: {carto_mapping}")
 
-        # Cartographer localization (아직 별도 파일 없음 - mapping 파일 사용)
+        # Cartographer localization
         carto_loc = src_path / 'SLAM' / '2D_SLAM' / 'Cartographer' / 'launch' / 'cartographer_localization.launch.py'
         if carto_loc.exists():
             self.node.launch_files['carto_loc'] = str(carto_loc)
@@ -215,7 +215,7 @@ class SlamManagerUI(QtWidgets.QMainWindow):
     def on_start_gazebo(self):
         """Start Gazebo simulation"""
         if self.node.launch_files.get('gazebo'):
-            extra_args = ['rviz:=false']  # RViz는 SLAM에서 따로 실행
+            extra_args = ['rviz:=false', 'odom_tf:=false']  # SLAM이 odom_tf를 관리하도록
             if self.node.start_launch_file('gazebo', self.node.launch_files['gazebo'], extra_args):
                 self.chkUseSimTime.setChecked(True)
                 self.update_button_states()

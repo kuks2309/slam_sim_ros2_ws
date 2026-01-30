@@ -208,7 +208,6 @@ class SlamManagerNode(Node):
 
         try:
             cmd = ['ros2', 'launch', launch_file_path]
-
             if extra_args:
                 cmd.extend(extra_args)
 
