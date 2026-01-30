@@ -15,7 +15,9 @@ class OdomToTF(Node):
     def __init__(self):
         super().__init__('odom_to_tf')
         # use_sim_time 파라미터 선언 (Gazebo 시뮬레이션용)
-        self.declare_parameter('use_sim_time', True)
+        # 이미 선언되어 있을 수 있으므로 확인 후 선언
+        if not self.has_parameter('use_sim_time'):
+            self.declare_parameter('use_sim_time', True)
         self.tf_broadcaster = TransformBroadcaster(self)
         self.subscription = self.create_subscription(
             Odometry,

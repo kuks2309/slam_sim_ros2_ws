@@ -69,8 +69,11 @@ def generate_launch_description():
 
     # Odom to TF: Publish odom -> base_link TF from /odom topic
     odom_to_tf_script = os.path.join(pkg_src, 'scripts', 'odom_to_tf.py')
-    odom_to_tf = ExecuteProcess(
-        cmd=['python3', odom_to_tf_script],
+    odom_to_tf = Node(
+        package='tm_gazebo',
+        executable='odom_to_tf.py',
+        name='odom_to_tf',
+        parameters=[{'use_sim_time': use_sim_time}],
         output='screen',
         condition=IfCondition(LaunchConfiguration('odom_tf'))
     )
