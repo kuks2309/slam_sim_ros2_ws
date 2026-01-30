@@ -215,7 +215,7 @@ class SlamManagerUI(QtWidgets.QMainWindow):
     def on_start_gazebo(self):
         """Start Gazebo simulation"""
         if self.node.launch_files.get('gazebo'):
-            extra_args = ['rviz:=false', 'odom_tf:=false']  # SLAM이 odom_tf를 관리하도록
+            extra_args = ['rviz:=false']  # Gazebo가 odom_to_tf 실행 (원래대로)
             if self.node.start_launch_file('gazebo', self.node.launch_files['gazebo'], extra_args):
                 self.chkUseSimTime.setChecked(True)
                 self.update_button_states()
@@ -391,7 +391,7 @@ class SlamManagerUI(QtWidgets.QMainWindow):
     def on_start_slamtoolbox_mapping(self):
         self.log("Start Mapping button clicked!")
         if self.node.launch_files['slamtoolbox_mapping']:
-            extra_args = []
+            extra_args = ['odom_tf:=false']  # Gazebo가 이미 odom_to_tf 실행 중
             if self.chkUseSimTime.isChecked():
                 extra_args.append('use_sim_time:=true')
             if self.chkRviz.isChecked():
@@ -399,7 +399,7 @@ class SlamManagerUI(QtWidgets.QMainWindow):
 
             if self.node.start_launch_file('slamtoolbox_mapping',
                                            self.node.launch_files['slamtoolbox_mapping'],
-                                           extra_args if extra_args else None):
+                                           extra_args):
                 self.update_button_states()
         else:
             self.log("SLAM Toolbox mapping launch file not configured!")

@@ -28,7 +28,8 @@ class OdomToTF(Node):
 
     def odom_callback(self, msg: Odometry):
         t = TransformStamped()
-        t.header.stamp = msg.header.stamp
+        # Use current time instead of message timestamp to avoid TF_OLD_DATA warnings
+        t.header.stamp = self.get_clock().now().to_msg()
         t.header.frame_id = msg.header.frame_id
         t.child_frame_id = msg.child_frame_id
         t.transform.translation.x = msg.pose.pose.position.x

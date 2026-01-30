@@ -63,11 +63,12 @@ def generate_launch_description():
     )
 
     # Odom to TF: Publish odom -> base_link TF from /odom topic
+    # NOTE: Normally Gazebo runs this. Only enable if running SLAM standalone.
     odom_to_tf_node = Node(
         package='tm_gazebo',
         executable='odom_to_tf.py',
         name='odom_to_tf',
-        parameters=[{'use_sim_time': use_sim_time}],
+        parameters=[{'use_sim_time': True}],  # Always True for simulation
         output='screen',
         condition=IfCondition(odom_tf)
     )
