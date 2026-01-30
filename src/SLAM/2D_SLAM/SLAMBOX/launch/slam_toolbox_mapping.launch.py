@@ -30,7 +30,6 @@ def generate_launch_description():
     params_file = LaunchConfiguration('params_file')
     rviz = LaunchConfiguration('rviz')
     rviz_config = LaunchConfiguration('rviz_config')
-    odom_tf = LaunchConfiguration('odom_tf')
 
     declare_use_sim_time = DeclareLaunchArgument(
         'use_sim_time',
