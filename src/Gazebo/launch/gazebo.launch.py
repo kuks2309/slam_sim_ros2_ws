@@ -40,6 +40,22 @@ def generate_launch_description():
         value=models_path
     )
 
+    # Fix for WSL2 Ogre rendering issues
+    set_ogre_fix1 = SetEnvironmentVariable(
+        name='LIBGL_ALWAYS_SOFTWARE',
+        value='1'
+    )
+
+    set_ogre_fix2 = SetEnvironmentVariable(
+        name='MESA_GL_VERSION_OVERRIDE',
+        value='3.3'
+    )
+
+    set_ogre_fix3 = SetEnvironmentVariable(
+        name='MESA_GLSL_VERSION_OVERRIDE',
+        value='330'
+    )
+
     # Ignition Gazebo (Fortress)
     gazebo = ExecuteProcess(
         cmd=['ign', 'gazebo', '-r', LaunchConfiguration('world')],
@@ -117,6 +133,9 @@ def generate_launch_description():
 
     return LaunchDescription([
         set_gz_resource_path,
+        set_ogre_fix1,
+        set_ogre_fix2,
+        set_ogre_fix3,
         world_arg,
         odom_tf_arg,
         use_sim_time_arg,
