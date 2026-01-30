@@ -79,7 +79,7 @@ def generate_launch_description():
             '/camera/depth/camera_info@sensor_msgs/msg/CameraInfo@ignition.msgs.CameraInfo',
             '/camera/points@sensor_msgs/msg/PointCloud2@ignition.msgs.PointCloudPacked',
         ],
-        parameters=[{'use_sim_time': use_sim_time}],
+        parameters=[{'use_sim_time': True}],  # Gazebo always uses sim time
         output='screen'
     )
 
@@ -89,7 +89,7 @@ def generate_launch_description():
         package='tm_gazebo',
         executable='odom_to_tf.py',
         name='odom_to_tf',
-        parameters=[{'use_sim_time': use_sim_time}],
+        parameters=[{'use_sim_time': True}],  # Gazebo always uses sim time
         output='screen',
         condition=IfCondition(LaunchConfiguration('odom_tf'))
     )
@@ -99,7 +99,7 @@ def generate_launch_description():
         package='tf2_ros',
         executable='static_transform_publisher',
         arguments=['0', '0', '0.09', '0', '0', '0', 'base_link', 'lidar_link'],
-        parameters=[{'use_sim_time': use_sim_time}],
+        parameters=[{'use_sim_time': True}],  # Gazebo always uses sim time
         output='screen'
     )
 
@@ -108,7 +108,7 @@ def generate_launch_description():
         package='tf2_ros',
         executable='static_transform_publisher',
         arguments=['0.25', '0', '0.10', '0', '0', '0', 'base_link', 'camera_link'],
-        parameters=[{'use_sim_time': use_sim_time}],
+        parameters=[{'use_sim_time': True}],  # Gazebo always uses sim time
         output='screen'
     )
 
@@ -118,7 +118,7 @@ def generate_launch_description():
         executable='rviz2',
         name='rviz2',
         arguments=['-d', rviz_config],
-        parameters=[{'use_sim_time': use_sim_time}],
+        parameters=[{'use_sim_time': True}],  # Gazebo always uses sim time
         output='screen'
     )
 
@@ -127,7 +127,7 @@ def generate_launch_description():
         package='rqt_robot_steering',
         executable='rqt_robot_steering',
         name='rqt_robot_steering',
-        parameters=[{'use_sim_time': use_sim_time}],
+        parameters=[{'use_sim_time': True}],  # Gazebo always uses sim time
         output='screen'
     )
 

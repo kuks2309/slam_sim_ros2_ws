@@ -56,23 +56,6 @@ def generate_launch_description():
         description='Full path to the RViz config file'
     )
 
-    declare_odom_tf = DeclareLaunchArgument(
-        'odom_tf',
-        default_value='true',
-        description='Enable odom to base_link TF publishing'
-    )
-
-    # Odom to TF: Publish odom -> base_link TF from /odom topic
-    # NOTE: Normally Gazebo runs this. Only enable if running SLAM standalone.
-    odom_to_tf_node = Node(
-        package='tm_gazebo',
-        executable='odom_to_tf.py',
-        name='odom_to_tf',
-        parameters=[{'use_sim_time': use_sim_time}],
-        output='screen',
-        condition=IfCondition(odom_tf)
-    )
-
     slam_toolbox_node = Node(
         package='slam_toolbox',
         executable='async_slam_toolbox_node',
@@ -99,8 +82,6 @@ def generate_launch_description():
         declare_params_file,
         declare_rviz,
         declare_rviz_config,
-        declare_odom_tf,
-        odom_to_tf_node,
         slam_toolbox_node,
         rviz_node,
     ])

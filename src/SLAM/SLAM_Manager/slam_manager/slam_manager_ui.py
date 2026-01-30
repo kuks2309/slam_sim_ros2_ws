@@ -391,7 +391,7 @@ class SlamManagerUI(QtWidgets.QMainWindow):
     def on_start_slamtoolbox_mapping(self):
         self.log("Start Mapping button clicked!")
         if self.node.launch_files['slamtoolbox_mapping']:
-            extra_args = ['odom_tf:=false']  # Gazebo가 이미 odom_to_tf 실행 중
+            extra_args = []
             if self.chkUseSimTime.isChecked():
                 extra_args.append('use_sim_time:=true')
             if self.chkRviz.isChecked():
