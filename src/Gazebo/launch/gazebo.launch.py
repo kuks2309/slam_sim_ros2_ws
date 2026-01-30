@@ -84,13 +84,12 @@ def generate_launch_description():
     )
 
     # Odom to TF: Publish odom -> base_link TF from /odom topic
-    # CRITICAL: Always use simulation time for Gazebo
     odom_to_tf_script = os.path.join(pkg_src, 'scripts', 'odom_to_tf.py')
     odom_to_tf = Node(
         package='tm_gazebo',
         executable='odom_to_tf.py',
         name='odom_to_tf',
-        parameters=[{'use_sim_time': True}],  # Always True for simulation
+        parameters=[{'use_sim_time': use_sim_time}],
         output='screen',
         condition=IfCondition(LaunchConfiguration('odom_tf'))
     )

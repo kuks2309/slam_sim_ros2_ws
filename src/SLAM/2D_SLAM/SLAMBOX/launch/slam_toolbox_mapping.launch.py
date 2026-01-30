@@ -68,7 +68,7 @@ def generate_launch_description():
         package='tm_gazebo',
         executable='odom_to_tf.py',
         name='odom_to_tf',
-        parameters=[{'use_sim_time': True}],  # Always True for simulation
+        parameters=[{'use_sim_time': use_sim_time}],
         output='screen',
         condition=IfCondition(odom_tf)
     )
